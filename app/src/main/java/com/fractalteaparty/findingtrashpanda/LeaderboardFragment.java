@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.MapView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -25,7 +26,7 @@ public class LeaderboardFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private LeaderboardAdapter mAdapter;
 
-    private class Player {
+    private class Player implements Comparable<Player>{
         private String userName;
         private int score;
         private String realName;
@@ -36,9 +37,14 @@ public class LeaderboardFragment extends Fragment {
             Integer randNum = rand.nextInt(100);
             userName = "User " + randNum.toString();
             //give the player a score
-            score = rand.nextInt();
+            score = rand.nextInt(100);
             //give the player a real name
             realName = "Real Name " + randNum.toString();
+        }
+
+        public int compareTo(Player p)
+        {
+            return(p.getScore() - score);
         }
 
         public String getUserName() {
@@ -49,7 +55,7 @@ public class LeaderboardFragment extends Fragment {
             this.userName = userName;
         }
 
-        public int getScore() {
+        public Integer getScore() {
             return score;
         }
 
@@ -80,6 +86,7 @@ public class LeaderboardFragment extends Fragment {
         for (Integer i = 0; i < 10; i++){
             players.add(new Player());
         }
+        Collections.sort(players);
     }
 
     @Override
@@ -103,15 +110,17 @@ public class LeaderboardFragment extends Fragment {
     private class LeaderboardHolder extends RecyclerView.ViewHolder{
         private TextView mPlayernameTV;
         private TextView mUserNameTV;
+        private TextView mUserScoreTV;
         public LeaderboardHolder(View itemView){
             super(itemView);
             mPlayernameTV = (TextView) itemView.findViewById(R.id.player_name_tv);
             mUserNameTV = (TextView) itemView.findViewById(R.id.player_username_tv);
-
+            mUserScoreTV = (TextView) itemView.findViewById(R.id.leaderboard_score_tv);
         }
         public void bind(Player player){
             mPlayernameTV.setText(player.getRealName());
             mUserNameTV.setText(player.getUserName());
+            mUserScoreTV.setText(player.getScore().toString());
         }
     }
 
