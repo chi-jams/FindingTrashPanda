@@ -21,6 +21,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_pager);
+        getSupportActionBar().hide();
 
         mViewPager = (ViewPager) findViewById(R.id.home_pager);
         FragmentManager fm = getSupportFragmentManager();

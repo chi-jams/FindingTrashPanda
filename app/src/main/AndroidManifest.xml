@@ -24,6 +24,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".InstructionsActivity">
+        </activity>
+
+        <activity android:name=".FoundPandaActivity">
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

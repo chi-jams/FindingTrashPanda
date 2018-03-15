@@ -1,10 +1,12 @@
 package com.fractalteaparty.findingtrashpanda;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -23,6 +25,7 @@ import java.util.UUID;
 
 public class MainFragment extends Fragment implements OnMapReadyCallback{
     MapView mMapView;
+    private Button mFoundButton;
     private GoogleMap googleMap;
     public static MainFragment newInstance(){
         return new MainFragment();
@@ -42,7 +45,14 @@ public class MainFragment extends Fragment implements OnMapReadyCallback{
 
         mMapView.getMapAsync(this);
 
-
+        mFoundButton = (Button) v.findViewById(R.id.found_button);
+        mFoundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = InstructionsActivity.newIntent(getContext());
+                startActivity(i);
+            }
+        });
 
         return v;
     }
@@ -63,8 +73,8 @@ public class MainFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onResume(){
-        mMapView.onResume();
         super.onResume();
+        mMapView.onResume();
     }
 
     @Override
