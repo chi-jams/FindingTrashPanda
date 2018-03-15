@@ -37,7 +37,7 @@ public class ViewPagerActivity extends AppCompatActivity {
                         return MainFragment.newInstance();
                     case 2:
                         System.out.println("Page " + position);
-                        return MainFragment.newInstance();
+                        return LeaderboardFragment.newInstance();
                 }
                 System.out.println("Page " + position);
                 return null;
