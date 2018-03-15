@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">FindingTrashPanda</string>
     <string name="title_activity_maps">Map</string>
-    <string name="found_steve">You found Steve!</string>
+    <string name="found_steve">You found </string>
+    <string name="exclamation_point">!</string>
     <string name="hidden_life_info">Info about hidden life:</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing
         elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -13,5 +14,6 @@
     <string name="points">Points:</string>
     <string name="amt_finds">Amount of finds:</string>
     <string name="most_found_panda">Most found panda:</string>
-    
+    <string name="stats">Stats:</string>
+    <string name="steve">Steve</string>
 </resources>
