@@ -13,5 +13,7 @@
     <string name="points">Points:</string>
     <string name="amt_finds">Amount of finds:</string>
     <string name="most_found_panda">Most found panda:</string>
+
+    <string name="panda_hiding">Hiding...</string>
     
 </resources>
