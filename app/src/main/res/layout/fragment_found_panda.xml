@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="35sp"
-            android:text="@string/found_steve"/>
+            android:text="@string/found"/>
 
         <TextView
             android:id="@+id/panda_name"

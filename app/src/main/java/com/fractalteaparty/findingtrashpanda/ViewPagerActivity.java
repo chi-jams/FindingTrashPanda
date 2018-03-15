@@ -21,6 +21,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_pager);
+        getSupportActionBar().hide();
 
         mViewPager = (ViewPager) findViewById(R.id.home_pager);
         FragmentManager fm = getSupportFragmentManager();
@@ -36,7 +37,7 @@ public class ViewPagerActivity extends AppCompatActivity {
                         return MainFragment.newInstance();
                     case 2:
                         System.out.println("Page " + position);
-                        return MainFragment.newInstance();
+                        return LeaderboardFragment.newInstance();
                 }
                 System.out.println("Page " + position);
                 return null;
