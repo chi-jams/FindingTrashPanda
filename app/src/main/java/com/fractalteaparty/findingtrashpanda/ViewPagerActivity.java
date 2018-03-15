@@ -31,7 +31,7 @@ public class ViewPagerActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         System.out.println("Page " + position);
-                        return MainFragment.newInstance();
+                        return PersonalPageFragment.newInstance();
                     case 1:
                         System.out.println("Page " + position);
                         return MainFragment.newInstance();
