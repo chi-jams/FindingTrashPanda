@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/panda_hiding"
-        android:text_size="24sp"
+        android:textSize="24sp"
         android:layout_weight="0.1"
         android:layout_margin="5dp"/>
 
