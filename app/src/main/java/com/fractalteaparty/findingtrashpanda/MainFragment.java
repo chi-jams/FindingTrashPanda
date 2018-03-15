@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,7 +38,7 @@ import java.util.UUID;
  */
 
 public class MainFragment extends Fragment implements OnMapReadyCallback{
-
+    private Button mFoundButton;
     private MapView mMapView;
     private GoogleMap googleMap;
     private RecyclerView mRecyclerView;
@@ -65,6 +66,15 @@ public class MainFragment extends Fragment implements OnMapReadyCallback{
         mMapView.onCreate(savedInstanceState);
 
         mMapView.getMapAsync(this);
+
+        mFoundButton = (Button) v.findViewById(R.id.found_button);
+        mFoundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = InstructionsActivity.newIntent(getContext());
+                startActivity(i);
+            }
+        });
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.panda_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -96,8 +106,8 @@ public class MainFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onResume(){
-        mMapView.onResume();
         super.onResume();
+        mMapView.onResume();
     }
 
     @Override
