@@ -2,10 +2,13 @@ package com.fractalteaparty.findingtrashpanda;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,8 +25,11 @@ import java.util.UUID;
  */
 
 public class MainFragment extends Fragment implements OnMapReadyCallback{
-    MapView mMapView;
+
+    private MapView mMapView;
+    private RecyclerView mRecyclerView;
     private GoogleMap googleMap;
+
     public static MainFragment newInstance(){
         return new MainFragment();
     }
@@ -42,7 +48,7 @@ public class MainFragment extends Fragment implements OnMapReadyCallback{
 
         mMapView.getMapAsync(this);
 
-
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.panda_list);
 
         return v;
     }
@@ -57,8 +63,6 @@ public class MainFragment extends Fragment implements OnMapReadyCallback{
         } catch (SecurityException e){
             e.printStackTrace();
         }
-
-
     }
 
     @Override
