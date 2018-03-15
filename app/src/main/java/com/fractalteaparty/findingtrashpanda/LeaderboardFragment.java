@@ -13,8 +13,8 @@ import com.google.android.gms.maps.MapView;
  */
 
 public class LeaderboardFragment extends Fragment {
-    public static PlayerStatsFragment newInstance(){
-        return new PlayerStatsFragment();
+    public static LeaderboardFragment newInstance(){
+        return new LeaderboardFragment();
     }
 
     @Override
@@ -25,8 +25,6 @@ public class LeaderboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup view, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, view, false);
-
-        
         return v;
     }
 }

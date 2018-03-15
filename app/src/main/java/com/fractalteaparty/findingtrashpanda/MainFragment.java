@@ -24,6 +24,7 @@ import java.util.UUID;
 public class MainFragment extends Fragment implements OnMapReadyCallback{
     MapView mMapView;
     private GoogleMap googleMap;
+
     public static MainFragment newInstance(){
         return new MainFragment();
     }
