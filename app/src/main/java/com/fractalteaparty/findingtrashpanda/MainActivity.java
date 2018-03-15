@@ -13,13 +13,9 @@ public class MainActivity extends SingleFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_fragment);
     }
 
-    public static Intent newIntent(Context packageContext, UUID crimeId){
-        Intent intent = new Intent(packageContext, MainFragment.class);
-        return intent;
-    }
 
     @Override
     protected Fragment createFragment(){
