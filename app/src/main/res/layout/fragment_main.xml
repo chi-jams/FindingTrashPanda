@@ -26,30 +26,27 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1.0"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="fill_parent"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/panda_fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/panda_list">
         </android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
+    </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
 
-        <Button
-            android:id="@+id/found_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/found_panda"
-            android:layout_gravity="center_horizontal|bottom"/>
-    </LinearLayout>
 </LinearLayout>
