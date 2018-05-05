@@ -38,6 +38,7 @@ public class InstructionsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = FoundPandaActivity.newIntent(getContext());
+                //get the nfc data and launch the activity appropriately, we'll pass the data as an extra
                 startActivity(i);
             }
         });

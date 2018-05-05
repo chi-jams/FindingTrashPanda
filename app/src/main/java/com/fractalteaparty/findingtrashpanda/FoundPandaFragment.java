@@ -36,6 +36,14 @@ public class FoundPandaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup view, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_found_panda, view, false);
 
+        //get NFC panda info
+        mPandaImage = v.findViewById(R.id.panda_picture);
+        mPandaName = v.findViewById(R.id.panda_name);
+        mPandaInfo = v.findViewById(R.id.hidden_life_info);
+
+        mPandaName.setText("BillyBob");
+
+
         return v;
     }
 

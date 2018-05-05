@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -26,7 +27,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="35sp"
             android:layout_marginStart="10dp"
-            android:text="@string/steve"/>
+            tools:text="@string/steve"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,14 +50,15 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp"
         android:layout_marginTop="10dp"
-        android:text="@string/hidden_life_info"/>
+        android:text="@string/hidden_life_info"
+        />
 
     <TextView
-        android:id="@+id/hidden_life"
+        android:id="@+id/hidden_life_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:textSize="16sp"
-        android:text="@string/lorem_ipsum"/>
+        tools:text="@string/lorem_ipsum"/>
 
 </LinearLayout>
