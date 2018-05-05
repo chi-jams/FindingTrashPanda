@@ -13,13 +13,15 @@ import android.widget.TextView;
  */
 
 public class FoundPandaFragment extends Fragment {
+    private static final String PANDA_NAME = "ftp.PandaName.key";
     private TextView mPandaName;
+    private String mPassedPandaName;
     private ImageView mPandaImage;
     private TextView mPandaInfo;
 
-    public static FoundPandaFragment newInstance() {
+    public static FoundPandaFragment newInstance(String mPayload) {
         Bundle args = new Bundle();
-
+        args.putString(PANDA_NAME, mPayload);
         FoundPandaFragment fragment = new FoundPandaFragment();
         fragment.setArguments(args);
         return fragment;
@@ -28,7 +30,7 @@ public class FoundPandaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mPassedPandaName = getArguments().getString(PANDA_NAME);
 
     }
 
@@ -41,7 +43,7 @@ public class FoundPandaFragment extends Fragment {
         mPandaName = v.findViewById(R.id.panda_name);
         mPandaInfo = v.findViewById(R.id.hidden_life_info);
 
-        mPandaName.setText("BillyBob");
+        mPandaName.setText(mPassedPandaName);
 
 
         return v;
