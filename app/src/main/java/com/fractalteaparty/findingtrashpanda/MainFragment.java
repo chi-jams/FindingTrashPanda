@@ -3,6 +3,7 @@ package com.fractalteaparty.findingtrashpanda;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,6 +40,7 @@ import java.util.UUID;
 
 public class MainFragment extends AuthFrag implements OnMapReadyCallback{
     private Button mFoundButton;
+    private FloatingActionButton mPandaFab;
     private MapView mMapView;
     private GoogleMap googleMap;
     private RecyclerView mRecyclerView;
@@ -67,15 +69,22 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
 
         mMapView.getMapAsync(this);
 
-        mFoundButton = (Button) v.findViewById(R.id.found_button);
+        /*mFoundButton = (Button) v.findViewById(R.id.found_button);
         mFoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = InstructionsActivity.newIntent(getContext());
                 startActivity(i);
             }
+        });*/
+        mPandaFab = (FloatingActionButton) v.findViewById(R.id.panda_fab);
+        mPandaFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = InstructionsActivity.newIntent(getContext());
+                startActivity(i);
+            }
         });
-
         mRecyclerView = (RecyclerView) v.findViewById(R.id.panda_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -86,6 +95,8 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
         pandas.add("Josh;Found");
         pandas.add("Chi;Found");
         pandas.add("Gustavo;Hiding");
+        pandas.add("Morty;Hiding");
+        pandas.add("Summer;Hiding");
 
         mAdapter = new PandaAdapter(pandas);
         mRecyclerView.setAdapter(mAdapter);
