@@ -11,9 +11,19 @@
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
         aliquip ex ea commodo consequat.</string>
     <string name="found_panda_title">Found a trash panda?</string>
+    <string name="hide_panda_title">Ready to hide %1$s?</string>
+    <string name="hide_insert_name">hide %1$s</string>
     <string name="found_panda_instructions">Your trash panda will be validated and its
         identity will be revealed using NFC. To conduct scanning, place your phone on
         the back of the raccoon.</string>
+    <string name="hide_panda_instructions">In order to record the location of
+        hiding, please click the button below once you have found a hiding spot. Once
+        you click below, do not move the panda. Sit back and wait for others to
+        discover it!</string>
+    <string name="hide_panda_ready">Okay, I found a spot!</string>
+    <string name="hide_panda_not_ready">Need more time? When you are ready to hide, simply
+        press the trash panda icon on the home screen.</string>
+    <string name="hide_later">Hide Later</string>
     <string name="verify">Verify!</string>
     <string name="username">Username</string>
     <string name="points">Points:</string>
