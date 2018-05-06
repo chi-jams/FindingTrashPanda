@@ -12,7 +12,7 @@ import android.widget.Button;
  * Created by bajafresh12 on 3/14/18.
  */
 
-public class InstructionsFragment extends Fragment {
+public class InstructionsFragment extends AuthFrag {
     private Button mVerifyButton;
 
 

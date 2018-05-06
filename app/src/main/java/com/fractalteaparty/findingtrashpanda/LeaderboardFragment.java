@@ -21,7 +21,7 @@ import java.util.Random;
  * Created by stephenagee on 3/15/18.
  */
 
-public class LeaderboardFragment extends Fragment {
+public class LeaderboardFragment extends AuthFrag {
     private List<Player> players;
     private RecyclerView mRecyclerView;
     private LeaderboardAdapter mAdapter;

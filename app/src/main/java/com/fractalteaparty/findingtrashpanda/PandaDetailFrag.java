@@ -14,7 +14,7 @@ import android.widget.TextView;
  * Created by daichij on 3/15/18.
  */
 
-public class PandaDetailFrag extends Fragment {
+public class PandaDetailFrag extends AuthFrag {
 
     private String mPanda;
     private ImageView mPic;

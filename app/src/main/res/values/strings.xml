@@ -19,4 +19,6 @@
     <string name="stats">Stats:</string>
     <string name="steve">Steve</string>
     <string name="panda_hiding">Hiding...</string>
+
+    <string name="sign_out">Sign Out</string>
 </resources>

@@ -37,7 +37,7 @@ import java.util.UUID;
  * Created by stephenagee on 3/14/18.
  */
 
-public class MainFragment extends Fragment implements OnMapReadyCallback{
+public class MainFragment extends AuthFrag implements OnMapReadyCallback{
     private Button mFoundButton;
     private MapView mMapView;
     private GoogleMap googleMap;

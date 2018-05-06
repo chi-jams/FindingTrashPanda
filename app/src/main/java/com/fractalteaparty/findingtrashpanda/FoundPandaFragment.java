@@ -12,7 +12,7 @@ import android.widget.TextView;
  * Created by bajafresh12 on 3/14/18.
  */
 
-public class FoundPandaFragment extends Fragment {
+public class FoundPandaFragment extends AuthFrag {
     private static final String PANDA_NAME = "ftp.PandaName.key";
     private TextView mPandaName;
     private String mPassedPandaName;
