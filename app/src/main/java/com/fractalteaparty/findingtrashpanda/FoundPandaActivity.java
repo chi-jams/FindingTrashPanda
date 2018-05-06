@@ -18,6 +18,7 @@ import java.util.Locale;
 public class FoundPandaActivity extends SingleFragmentActivity {
 
     String mPayload;
+    private static String PANDA_NAME = "ftp.PandaName.key";
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, FoundPandaActivity.class);
@@ -25,38 +26,8 @@ public class FoundPandaActivity extends SingleFragmentActivity {
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if (intent != null && NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            Parcelable[] rawMessages =
-                    intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            if (rawMessages != null) {
-                NdefMessage[] messages = new NdefMessage[rawMessages.length];
-                for (int i = 0; i < rawMessages.length; i++) {
-                    messages[i] = (NdefMessage) rawMessages[i];
-                }
-                NdefMessage message = (NdefMessage) messages[0];
-                // Process the messages array.
-                System.out.print("Here are the messages: ");
-                System.out.println(messages[0]);
-                try {
-                    mPayload = new String(message.getRecords()[0].getPayload(), "UTF-8");
-                    //this line removes the "en" language encoding at the beginning of the text
-                    mPayload = mPayload.substring(3);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(mPayload);
-            }
-        }
-    }
-
-
-
-    @Override
     protected Fragment createFragment(){
-        System.out.println("Nope I went here");
-        onNewIntent(getIntent());
-        return FoundPandaFragment.newInstance(mPayload);
+        String pandaName = getIntent().getStringExtra(PANDA_NAME);
+        return FoundPandaFragment.newInstance(pandaName);
     }
 }

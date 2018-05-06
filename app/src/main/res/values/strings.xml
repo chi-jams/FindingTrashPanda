@@ -10,7 +10,10 @@
         elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
         aliquip ex ea commodo consequat.</string>
-    <string name="instructions">Instructions:</string>
+    <string name="found_panda_title">Found a trash panda?</string>
+    <string name="found_panda_instructions">Your trash panda will be validated and its
+        identity will be revealed using NFC. To conduct scanning, place your phone on
+        the back of the raccoon.</string>
     <string name="verify">Verify!</string>
     <string name="username">Username</string>
     <string name="points">Points:</string>
@@ -19,4 +22,6 @@
     <string name="stats">Stats:</string>
     <string name="steve">Steve</string>
     <string name="panda_hiding">Hiding...</string>
+    <string name="hide_now">Hide now!</string>
+    <string name="go_back">Go back</string>
 </resources>
