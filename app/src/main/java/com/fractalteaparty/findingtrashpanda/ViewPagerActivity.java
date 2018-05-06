@@ -13,21 +13,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.ViewGroup;
 
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Arrays;
-import java.util.List;
 import android.view.View;
 
 import java.io.UnsupportedEncodingException;
-import java.util.UUID;
 
 /**
  * Created by stephenagee on 3/14/18.
@@ -59,7 +49,7 @@ public class ViewPagerActivity extends AuthActivity {
         mPandaFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = InstructionsActivity.newIntent(getApplicationContext());
+                Intent i = InstructionsFoundActivity.newIntent(getApplicationContext());
                 startActivity(i);
             }
         });

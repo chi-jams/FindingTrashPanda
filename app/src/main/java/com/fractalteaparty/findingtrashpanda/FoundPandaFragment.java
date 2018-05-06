@@ -2,7 +2,6 @@ package com.fractalteaparty.findingtrashpanda;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,12 @@ import android.widget.TextView;
  */
 
 public class FoundPandaFragment extends AuthFrag {
-    private static final String PANDA_NAME = "ftp.PandaName.key";
+    public static final String PANDA_NAME = "ftp.PandaName.key";
     private TextView mPandaName;
     private String mPassedPandaName;
     private ImageView mPandaImage;
     private TextView mPandaInfo;
     private Button mHideNowButton;
-    private Button mGoBackButtion;
 
     public static FoundPandaFragment newInstance(String mPayload) {
         Bundle args = new Bundle();
@@ -53,8 +51,10 @@ public class FoundPandaFragment extends AuthFrag {
         mHideNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = InstructionsActivity.newIntent(getActivity().getApplicationContext());
+                Intent i = InstructionsHideActivity.newIntent(getActivity().getApplicationContext());
+                i.putExtra(PANDA_NAME, mPassedPandaName);
                 startActivity(i);
+                getActivity().finish();
             }
         });
 
