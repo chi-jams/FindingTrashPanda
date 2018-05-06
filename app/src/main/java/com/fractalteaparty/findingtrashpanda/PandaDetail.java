@@ -13,9 +13,9 @@ import android.util.Log;
 public class PandaDetail extends SingleFragmentActivity
     implements MainFragment.Callbacks {
 
-    public static Intent newIntent(Context pkgContext, String panda) {
+    public static Intent newIntent(Context pkgContext, String pandaName) {
         Intent intent = new Intent(pkgContext, PandaDetail.class);
-        intent.putExtra("panda", panda);
+        intent.putExtra("panda", pandaName);
 
         return intent;
     }

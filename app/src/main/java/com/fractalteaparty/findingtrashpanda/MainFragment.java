@@ -25,6 +25,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +52,11 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
     private PandaAdapter mAdapter;
     private Callbacks mCallbacks;
 
+    private FirebaseDatabase db;
+    private DatabaseReference dbRef;
+
+    private List<Panda> pandas;
+
     public interface Callbacks {
         void onPandaSelected(String s);
     }
@@ -58,6 +68,11 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        db = FirebaseDatabase.getInstance();
+        dbRef = db.getReference();
+
+        pandas = new ArrayList<Panda>();
     }
 
     @Override
@@ -72,18 +87,41 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
         mRecyclerView = (RecyclerView) v.findViewById(R.id.panda_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // TODO: Grab from firebase
-        List<String> pandas = new ArrayList<String>();
-        pandas.add("Steve;Hiding");
-        pandas.add("Zelda;Hiding");
-        pandas.add("Josh;Found");
-        pandas.add("Chi;Found");
-        pandas.add("Gustavo;Hiding");
-        pandas.add("Morty;Hiding");
-        pandas.add("Summer;Hiding");
 
-        mAdapter = new PandaAdapter(pandas);
+        // TODO: Grab from firebase
+        List<String> dummies = new ArrayList<String>();
+        dummies.add("Steve;Hiding");
+        dummies.add("Zelda;Hiding");
+        dummies.add("Josh;Found");
+        dummies.add("Chi;Found");
+        dummies.add("Gustavo;Hiding");
+        dummies.add("Morty;Hiding");
+        dummies.add("Summer;Hiding");
+
+        mAdapter = new PandaAdapter(dummies);
         mRecyclerView.setAdapter(mAdapter);
+
+        dbRef.child("pandas").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("ohai", dataSnapshot.toString());
+
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    Panda p = d.getValue(Panda.class);
+                    pandas.add(p);
+                    Log.i("ohai", String.format("Hi! I'm %s, I'm currently %s", p.name, p.state));
+                }
+
+                Log.i("ohai", String.format("I'm now aware of %d pandas", pandas.size()));
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("ohai", "Oops, something blew up");
+                Log.e("ohai", databaseError.toString());
+            }
+        });
 
         return v;
     }
@@ -130,7 +168,7 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
         private TextView mPandaStatus;
 
         // TODO: Change to actual class
-        private String panda;
+        private Panda panda;
 
         public PandaHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_panda, parent, false));
@@ -142,29 +180,27 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
         }
 
         // TODO: Change bind to take in a panda obj
-        public void bind(String s) {
-            String info[] = s.split(";");
+        public void bind(Panda p) {
 
-            panda = s;
-            mPandaName.setText(info[0]);
-            mPandaStatus.setText(info[1]);
+            panda = p;
+            mPandaName.setText(panda.name);
+            mPandaStatus.setText(panda.state);
         }
 
         @Override
         public void onClick(View v) {
             //mCallbacks.onPandaSelected(panda);
-            Log.d("pantrack", panda);
-            Intent detail = PandaDetail.newIntent(getContext(), panda);
+            Intent detail = PandaDetail.newIntent(getContext(), panda.name);
             startActivity(detail);
         }
     }
 
     private class PandaAdapter extends RecyclerView.Adapter<PandaHolder> {
         // TODO: Change to Panda
-        private List<String> mPandas;
+        //private List<String> mPandas;
 
         public PandaAdapter(List<String> pandas) {
-            mPandas = pandas;
+            //mPandas = pandas;
         }
 
         @Override
@@ -176,13 +212,13 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
 
         @Override
         public void onBindViewHolder(PandaHolder holder, int pos) {
-            String panda = mPandas.get(pos);
-            holder.bind(panda);
+            Panda p = pandas.get(pos);
+            holder.bind(p);
         }
 
         @Override
         public int getItemCount() {
-            return mPandas.size();
+            return pandas.size();
         }
     }
 }

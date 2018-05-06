@@ -10,17 +10,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 /**
  * Created by daichij on 3/15/18.
  */
 
 public class PandaDetailFrag extends AuthFrag {
 
-    private String mPanda;
+    private Panda mPanda;
+    private String mPandaName;
     private ImageView mPic;
     private TextView mName;
     private TextView mStatus;
     private TextView mDescription;
+
+    private FirebaseDatabase db;
+    private DatabaseReference pandaRef;
 
     public static PandaDetailFrag newInstance(String panda) {
         Bundle args = new Bundle();
@@ -36,29 +46,47 @@ public class PandaDetailFrag extends AuthFrag {
         super.onCreate(savedInstanceState);
 
         Log.d("pantrack 3", getArguments().toString());
+        mPandaName = getArguments().getString("panda");
+        Log.d("pantrack 4", mPandaName);
 
-        mPanda = getArguments().getString("panda");
-        Log.d("pantrack 4", mPanda);
+        db = FirebaseDatabase.getInstance();
+        pandaRef = db.getReference().getRef().child("pandas").child(mPandaName);
+
+        pandaRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("ohai", dataSnapshot.toString());
+
+                mPanda = dataSnapshot.getValue(Panda.class);
+                Log.i("ohai", String.format("It's %s!", mPanda.name));
+                mName.setText(mPanda.name);
+                mStatus.setText(mPanda.state);
+                mDescription.setText(mPanda.hidden_life);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("ohai", "Oops, something blew up");
+                Log.e("ohai", databaseError.toString());
+            }
+        });
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup containter, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.panda_profile, containter, false);
-
-        // Heh.
-        String panData[] = mPanda.split(";");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.panda_profile, container, false);
 
         mPic = v.findViewById(R.id.panda_pic);
         // TODO: Grab panda pic
 
         mName = v.findViewById(R.id.panda_name);
-        mName.setText(panData[0]);
+        //mName.setText(mPanda.name);
 
         mStatus = v.findViewById(R.id.panda_status);
-        mStatus.setText(panData[1]);
+        //mStatus.setText(mPanda.state);
 
         mDescription = v.findViewById(R.id.panda_description);
-        mDescription.setText("Nothing here but us chickens!");
+        //mDescription.setText(mPanda.hidden_life);
 
         return v;
     }
