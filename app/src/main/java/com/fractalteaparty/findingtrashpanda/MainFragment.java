@@ -106,6 +106,7 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i("ohai", dataSnapshot.toString());
 
+                pandas.clear();
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
                     Panda p = d.getValue(Panda.class);
                     pandas.add(p);

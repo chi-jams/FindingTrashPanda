@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,10 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
 
 /**
  * Created by bajafresh12 on 3/14/18.
@@ -37,6 +42,9 @@ public class InstructionsHideFragment extends AuthFrag {
     private TextView mReadyToHide;
     private Location mCurrentLocation;
     private GoogleApiClient mClient;
+
+    private FirebaseDatabase db;
+    private DatabaseReference pandaRef;
 
     public static InstructionsHideFragment newInstance(String pandaName) {
         Bundle args = new Bundle();
@@ -64,6 +72,9 @@ public class InstructionsHideFragment extends AuthFrag {
                     }
                 })
                 .build();
+
+        db = FirebaseDatabase.getInstance();
+        pandaRef = db.getReference().getRef().child("pandas").child(mPandaName);
     }
 
     @Override
@@ -135,6 +146,13 @@ public class InstructionsHideFragment extends AuthFrag {
                             LatLng myPoint = new LatLng(
                                     mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
                             Log.i("Location, yo", myPoint.toString());
+
+                            pandaRef.child("lat").setValue(mCurrentLocation.getLatitude());
+                            pandaRef.child("lon").setValue(mCurrentLocation.getLongitude());
+                            pandaRef.child("uid_current_owner").setValue(mUser.getUid());
+                            pandaRef.child("state").setValue("Hiding");
+                            pandaRef.child("date_hidden").setValue(DateFormat.format("yyyy/MM/dd hh:mm:ss", mCurrentLocation.getTime()));
+                            getActivity().finish();
                         }
                     });
         } catch (SecurityException e) {
