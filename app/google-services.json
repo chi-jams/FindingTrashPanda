@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "662691330080",
+    "firebase_url": "https://findingtrashpanda.firebaseio.com",
+    "project_id": "findingtrashpanda",
+    "storage_bucket": "findingtrashpanda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662691330080:android:6aae6ddc912af806",
+        "android_client_info": {
+          "package_name": "com.fractalteaparty.findingtrashpanda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662691330080-3umlrcgvn7ur2f4mpgpb66edtju2fenk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fractalteaparty.findingtrashpanda",
+            "certificate_hash": "b50296b37c011ea586fcf8545befe81e4c961779"
+          }
+        },
+        {
+          "client_id": "662691330080-7ji6road9hs29ujoqofd4gs04in58nln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdI0hPo72A-DPcLiaZXWFJ_mCf_F3FU2w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662691330080-7ji6road9hs29ujoqofd4gs04in58nln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
