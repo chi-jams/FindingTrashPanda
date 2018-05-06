@@ -13,8 +13,6 @@ import android.widget.Button;
  */
 
 public class InstructionsFragment extends AuthFrag {
-    private Button mVerifyButton;
-
 
     public static InstructionsFragment newInstance() {
         Bundle args = new Bundle();
@@ -32,16 +30,6 @@ public class InstructionsFragment extends AuthFrag {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup view, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_instructions, view, false);
-
-        mVerifyButton = (Button) v.findViewById(R.id.verify_button);
-        mVerifyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = FoundPandaActivity.newIntent(getContext());
-                //get the nfc data and launch the activity appropriately, we'll pass the data as an extra
-                startActivity(i);
-            }
-        });
         return v;
     }
 }

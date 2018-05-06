@@ -69,22 +69,6 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
 
         mMapView.getMapAsync(this);
 
-        /*mFoundButton = (Button) v.findViewById(R.id.found_button);
-        mFoundButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = InstructionsActivity.newIntent(getContext());
-                startActivity(i);
-            }
-        });*/
-        mPandaFab = (FloatingActionButton) v.findViewById(R.id.panda_fab);
-        mPandaFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = InstructionsActivity.newIntent(getContext());
-                startActivity(i);
-            }
-        });
         mRecyclerView = (RecyclerView) v.findViewById(R.id.panda_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

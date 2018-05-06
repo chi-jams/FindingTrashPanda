@@ -2,7 +2,13 @@ package com.fractalteaparty.findingtrashpanda;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -18,6 +24,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
+import android.view.View;
+
+import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 /**
@@ -25,8 +34,12 @@ import java.util.UUID;
  */
 
 public class ViewPagerActivity extends AuthActivity {
+    private static String PANDA_NAME = "ftp.PandaName.key";
 
     private ViewPager mViewPager;
+
+    private FloatingActionButton mPandaFab;
+    String mPandaName;
 
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, ViewPagerActivity.class);
@@ -36,8 +49,21 @@ public class ViewPagerActivity extends AuthActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //handle NFC calls and extract payload
+        onNewIntent(getIntent());
+
         setContentView(R.layout.activity_home_pager);
         getSupportActionBar().hide();
+
+        mPandaFab = (FloatingActionButton) this.findViewById(R.id.panda_fab);
+        mPandaFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = InstructionsActivity.newIntent(getApplicationContext());
+                startActivity(i);
+            }
+        });
+        mPandaFab.setBackgroundTintList(ColorStateList.valueOf(Color.BLUE));
 
         mViewPager = (ViewPager) findViewById(R.id.home_pager);
         FragmentManager fm = getSupportFragmentManager();
@@ -61,9 +87,37 @@ public class ViewPagerActivity extends AuthActivity {
                 return 3;
             }
         });
-
         mViewPager.setCurrentItem(1);
-        Log.i("ohai", "Got here");
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        //if we got here from a NFC intent
+        if (intent != null && NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            Parcelable[] rawMessages =
+                    intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            if (rawMessages != null) {
+                NdefMessage[] messages = new NdefMessage[rawMessages.length];
+                for (int i = 0; i < rawMessages.length; i++) {
+                    messages[i] = (NdefMessage) rawMessages[i];
+                }
+                NdefMessage message = (NdefMessage) messages[0];
+                // Process the messages array.
+                System.out.print("Here are the messages: ");
+                System.out.println(messages[0]);
+                try {
+                    mPandaName = new String(message.getRecords()[0].getPayload(), "UTF-8");
+                    //this line removes the "en" language encoding at the beginning of the text
+                    mPandaName = mPandaName.substring(3);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                Intent i = FoundPandaActivity.newIntent(getApplicationContext());
+                i.putExtra(PANDA_NAME, mPandaName);
+                startActivity(i);
+            }
+        }
     }
 
 }

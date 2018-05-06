@@ -11,23 +11,19 @@
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:textSize="30sp"
-        android:text="@string/instructions"/>
+        android:text="@string/found_panda_title"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:textSize="17sp"
-        android:layout_marginTop="60dp"
-        android:text="@string/lorem_ipsum"/>
+        android:layout_marginTop="30dp"
+        android:text="@string/found_panda_instructions"/>
 
-    <Button
-        android:id="@+id/verify_button"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp"
-        android:text="@string/verify"/>
+        android:src="@drawable/panda_medium"/>
 
 </LinearLayout>
