@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FindingTrashPanda.iml" filepath="$PROJECT_DIR$/FindingTrashPanda.iml" />
+      <module fileurl="file://C:\School\csci448Temp\FindingTrashPanda\FindingTrashPanda.iml" filepath="C:\School\csci448Temp\FindingTrashPanda\FindingTrashPanda.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\School\csci448Temp\FindingTrashPanda\app\app.iml" filepath="C:\School\csci448Temp\FindingTrashPanda\app\app.iml" />
     </modules>
   </component>
 </project>

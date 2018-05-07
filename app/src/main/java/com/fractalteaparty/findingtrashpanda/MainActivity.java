@@ -10,6 +10,10 @@ import java.util.UUID;
 
 public class MainActivity extends SingleFragmentActivity {
 
+    public static Intent newIntent(Context context) {
+        return new Intent(context, MainActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +26,4 @@ public class MainActivity extends SingleFragmentActivity {
     protected Fragment createFragment(){
         return MainFragment.newInstance();
     }
-
-
-
 }
