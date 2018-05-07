@@ -53,7 +53,7 @@ public class ViewPagerActivity extends AuthActivity {
                 startActivity(i);
             }
         });
-        mPandaFab.setBackgroundTintList(ColorStateList.valueOf(Color.BLUE));
+        mPandaFab.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(124,197,118)));
 
         mViewPager = (ViewPager) findViewById(R.id.home_pager);
         FragmentManager fm = getSupportFragmentManager();

@@ -4,20 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@color/colorAccent">
 
     <TextView
         android:layout_gravity="center"
         android:id="@+id/ready_to_hide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="17sp"
         android:layout_marginTop="30dp"
         android:text="@string/hide_panda_instructions"/>
@@ -26,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#000000"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="17sp"
         android:layout_marginTop="30dp"
         android:text="@string/hide_panda_ready"/>
@@ -35,14 +36,16 @@
         android:id="@+id/hide_panda_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_gravity="center"
+        />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#000000"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="17sp"
         android:layout_marginTop="30dp"
         android:text="@string/hide_panda_not_ready"/>
@@ -52,6 +55,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
         android:text="@string/hide_later"/>
 
 </LinearLayout>
