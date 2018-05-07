@@ -3,6 +3,7 @@ package com.fractalteaparty.findingtrashpanda;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,11 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Map;
 
 /**
  * Created by bajafresh12 on 3/14/18.
@@ -45,12 +51,23 @@ public class PersonalPageFragment extends AuthFrag {
 
 
         mUsername = v.findViewById(R.id.username);
-        if (mUser != null)
-            mUsername.setText(mUser.getDisplayName());
-
         mPoints = v.findViewById(R.id.user_points);
         mTotalFinds = v.findViewById(R.id.user_amount_finds);
         mMostFoundPanda = v.findViewById(R.id.user_most_found);
+
+        if (mUserRef != null) {
+            mUserRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    updateUI();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("ppfrag", databaseError.toString());
+                }
+            });
+        }
 
         mLogoutBtn = v.findViewById(R.id.sign_out);
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +84,26 @@ public class PersonalPageFragment extends AuthFrag {
             }
         });
 
+        if (mUser != null && mUserInfo != null)
+            updateUI();
+
         return v;
+    }
+
+    private void updateUI() {
+        if (mUser != null && mUserInfo != null) {
+            mUsername.setText(mUser.getDisplayName());
+            mPoints.setText(Integer.toString(mUserInfo.points));
+            mTotalFinds.setText(Integer.toString(mUserInfo.num_finds));
+            String maxPanda = "No pandas found yet";
+            int maxFinds = 0;
+            for (Map.Entry<String, Integer> panda : mUserInfo.panda_finds.entrySet()) {
+                if (panda.getValue() > maxFinds) {
+                    maxPanda = panda.getKey();
+                    maxFinds = panda.getValue();
+                }
+            }
+            mMostFoundPanda.setText(maxPanda);
+        }
     }
 }

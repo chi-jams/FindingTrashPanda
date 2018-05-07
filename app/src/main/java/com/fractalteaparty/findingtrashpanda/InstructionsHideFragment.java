@@ -20,8 +20,11 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 
@@ -75,6 +78,19 @@ public class InstructionsHideFragment extends AuthFrag {
 
         db = FirebaseDatabase.getInstance();
         pandaRef = db.getReference().getRef().child("pandas").child(mPandaName);
+
+        Panda p;
+        pandaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("ohai", dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("ohai", "oops");
+            }
+        });
     }
 
     @Override
