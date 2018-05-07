@@ -58,7 +58,6 @@ public class FoundPandaFragment extends AuthFrag {
             }
         });
 
-
         return v;
     }
 
