@@ -16,6 +16,13 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.UnsupportedEncodingException;
 
@@ -30,6 +37,9 @@ public class ViewPagerActivity extends AuthActivity {
 
     private FloatingActionButton mPandaFab;
     String mPandaName;
+
+    private FirebaseDatabase db;
+    private DatabaseReference pandaRef;
 
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, ViewPagerActivity.class);
@@ -94,8 +104,8 @@ public class ViewPagerActivity extends AuthActivity {
                 }
                 NdefMessage message = (NdefMessage) messages[0];
                 // Process the messages array.
-                System.out.print("Here are the messages: ");
-                System.out.println(messages[0]);
+                Log.i("vpactivity", "Here are the messages: ");
+                Log.i("vpactivity", messages[0].toString());
                 try {
                     mPandaName = new String(message.getRecords()[0].getPayload(), "UTF-8");
                     //this line removes the "en" language encoding at the beginning of the text
@@ -103,9 +113,35 @@ public class ViewPagerActivity extends AuthActivity {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                Intent i = FoundPandaActivity.newIntent(getApplicationContext());
-                i.putExtra(PANDA_NAME, mPandaName);
-                startActivity(i);
+
+                db = FirebaseDatabase.getInstance();
+                pandaRef = db.getReference().getRef().child("pandas").child(mPandaName);
+
+                Log.i("nfc", "Heyo! I got an NFC chip!");
+                pandaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.i("nfc", String.format("%s exists: %s", mPandaName, dataSnapshot.exists()));
+
+                        if(dataSnapshot.exists()) {
+                            Log.i("nfc", "It's real! Let's do something!");
+
+                            Intent i = FoundPandaActivity.newIntent(getApplicationContext());
+                            i.putExtra(PANDA_NAME, mPandaName);
+                            startActivity(i);
+                        }
+                        else {
+                            Log.i("nfc", "It's fake! Get outta here!");
+                            Toast.makeText(getApplicationContext(), "This doesn't look like a registered panda...", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("nfc", databaseError.toString());
+                    }
+                });
+
             }
         }
     }
