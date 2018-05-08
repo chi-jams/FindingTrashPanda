@@ -63,10 +63,10 @@ public class LeaderboardFragment extends AuthFrag {
         });
 
         for (User u : mListUsers){
-            Log.i("stuff", u.);
+            Log.i("stuff", u.name);
         }
 
-        //Collections.sort(players);
+        Collections.sort(mListUsers);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class LeaderboardFragment extends AuthFrag {
     }
 
     private void updateUI(){
-        mAdapter = new LeaderboardAdapter(players);
+        mAdapter = new LeaderboardAdapter(mListUsers);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -93,16 +93,16 @@ public class LeaderboardFragment extends AuthFrag {
             mUserNameTV = (TextView) itemView.findViewById(R.id.player_username_tv);
             mUserScoreTV = (TextView) itemView.findViewById(R.id.leaderboard_score_tv);
         }
-        public void bind(Player player){
-            mUserNameTV.setText(player.getUserName());
-            mUserScoreTV.setText(player.getScore().toString());
+        public void bind(User player){
+            mUserNameTV.setText(player.name);
+            mUserScoreTV.setText(Integer.toString(player.points));
         }
     }
 
     private class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardHolder>{
-        private List<Player> mPlayers;
+        private List<User> mPlayers;
 
-        public LeaderboardAdapter(List<Player> players){
+        public LeaderboardAdapter(List<User> players){
             mPlayers = players;
         }
 
