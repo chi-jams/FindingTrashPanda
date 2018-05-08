@@ -216,7 +216,7 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
         public void bind(Panda p) {
 
             panda = p;
-            mPandaName.setText(panda.name);
+            mPandaName.setText(panda.name.toUpperCase());
             mPandaStatus.setText(panda.state);
         }
 
