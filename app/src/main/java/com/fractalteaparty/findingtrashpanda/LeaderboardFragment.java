@@ -97,8 +97,6 @@ public class LeaderboardFragment extends AuthFrag {
 
         updateUI();
 
-
-
         return v;
     }
 
@@ -108,17 +106,14 @@ public class LeaderboardFragment extends AuthFrag {
     }
 
     private class LeaderboardHolder extends RecyclerView.ViewHolder{
-        private TextView mPlayernameTV;
         private TextView mUserNameTV;
         private TextView mUserScoreTV;
         public LeaderboardHolder(View itemView){
             super(itemView);
-            mPlayernameTV = (TextView) itemView.findViewById(R.id.player_name_tv);
             mUserNameTV = (TextView) itemView.findViewById(R.id.player_username_tv);
             mUserScoreTV = (TextView) itemView.findViewById(R.id.leaderboard_score_tv);
         }
         public void bind(Player player){
-            mPlayernameTV.setText(player.getRealName());
             mUserNameTV.setText(player.getUserName());
             mUserScoreTV.setText(player.getScore().toString());
         }

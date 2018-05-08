@@ -126,7 +126,6 @@ public class InstructionsHideFragment extends AuthFrag {
                 } else {
                     requestPermissions(LOCATION_PERMISSIONS, REQUEST_LOCATION_PERMISSIONS);
                 }
-                //returnHome();
             }
         });
 
@@ -134,15 +133,11 @@ public class InstructionsHideFragment extends AuthFrag {
         mHideLaterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getActivity().finish();
             }
         });
         return v;
     }
-
-
-
-
 
 
     private void getCurrentLocation(){

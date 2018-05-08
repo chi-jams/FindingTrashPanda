@@ -208,7 +208,6 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
             super(inflater.inflate(R.layout.list_item_panda, parent, false));
             itemView.setOnClickListener(this);
 
-            mPandaIcon = (ImageView) itemView.findViewById(R.id.panda_icon);
             mPandaName = (TextView) itemView.findViewById(R.id.panda_name);
             mPandaStatus = (TextView) itemView.findViewById(R.id.panda_status);
         }

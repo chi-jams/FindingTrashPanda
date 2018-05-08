@@ -5,7 +5,7 @@
     <string name="exclamation_point">!</string>
     <string name="found_panda">I found you!</string>
     <string name="found_steve">You found Steve!</string>
-    <string name="hidden_life_info">Info about hidden life:</string>
+    <string name="hidden_life_info">Short bio:</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing
         elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -35,4 +35,6 @@
     <string name="sign_out">Sign Out</string>
     <string name="hide_now">Hide now!</string>
     <string name="go_back">Go back</string>
+    <string name="go_home">Go home</string>
+    <string name="time_hiding">Time hiding:</string>
 </resources>

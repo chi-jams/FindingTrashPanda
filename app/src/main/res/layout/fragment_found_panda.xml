@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@color/colorAccent">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -16,9 +17,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/found"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="35sp"
-            android:text="@string/found"/>
+            android:textSize="35sp" />
 
         <TextView
             android:id="@+id/panda_name"
@@ -38,11 +40,26 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/panda_picture"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/imageview_border"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        android:text="@string/time_hiding"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"
+        android:text="@string/points"
+        />
+
+
+
 
     <TextView
         android:layout_width="match_parent"
@@ -60,18 +77,32 @@
         android:textColor="#000000"
         android:textSize="16sp"
         tools:text="@string/lorem_ipsum"/>
+
+
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
         <Button
+            android:layout_gravity="center"
             android:id="@+id/hide_now_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hide_now" />
+        <Button
+            android:id="@+id/go_home"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/go_home"/>
+
 
 
     </LinearLayout>
+
+
 
 
 </LinearLayout>
