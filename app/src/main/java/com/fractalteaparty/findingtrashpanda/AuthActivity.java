@@ -9,6 +9,11 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +27,11 @@ public class AuthActivity extends AppCompatActivity {
 
     protected FirebaseAuth mAuth;
     protected FirebaseUser mUser;
+
+    protected FirebaseDatabase db;
+    protected DatabaseReference mUserRef;
+
+    protected User mUserInfo;
 
     @Override
     protected void onCreate(Bundle onSavedInstanceState) {
@@ -47,6 +57,28 @@ public class AuthActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 mUser = FirebaseAuth.getInstance().getCurrentUser();
+                db = FirebaseDatabase.getInstance();
+                mUserRef = db.getReference().getRef().child("users").child(mUser.getUid());
+                mUserRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (!dataSnapshot.exists()) {
+                            mUserInfo = new User();
+                            Log.i("authfrag", "Didn't find a user... making a new one");
+                        }
+                        else {
+                            mUserInfo = dataSnapshot.getValue(User.class);
+                            Log.i("authfrag", String.format("Got a user! Hi %s!", mUser.getDisplayName()));
+                        }
+
+                        mUserRef.setValue(mUserInfo);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 finish();
                 startActivity(ViewPagerActivity.newIntent(getApplicationContext()));
 
@@ -78,6 +110,30 @@ public class AuthActivity extends AppCompatActivity {
             Log.i("ohai", mUser.toString());
             Log.i("ohai", String.format("Hello! I am %s", mUser.getDisplayName()));
             Log.i("ohai", String.format("Hello! My email is %s", mUser.getEmail()));
+
+            db = FirebaseDatabase.getInstance();
+            mUserRef = db.getReference().getRef().child("users").child(mUser.getUid());
+            mUserRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.exists()) {
+                        mUserInfo = new User();
+                        Log.i("authfrag", "Didn't find a user... making a new one");
+                    }
+                    else {
+                        mUserInfo = dataSnapshot.getValue(User.class);
+                        Log.i("authfrag", String.format("Got a user! Hi %s!", mUser.getDisplayName()));
+                    }
+
+                    mUserRef.setValue(mUserInfo);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
     }
 }

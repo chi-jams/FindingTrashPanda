@@ -12,6 +12,7 @@ public class User {
     public int num_finds;
     public Map<String, Integer> panda_finds;
     public String cur_panda;
+    public String name;
 
     public User() {
         points = 0;

@@ -50,6 +50,7 @@ public class AuthFrag extends Fragment {
                     Log.i("authfrag", String.format("Got a user! Hi %s!", mUser.getDisplayName()));
                 }
 
+                mUserInfo.name = mUser.getDisplayName();
                 mUserRef.setValue(mUserInfo);
             }
 

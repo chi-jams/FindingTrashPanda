@@ -156,7 +156,7 @@ public class InstructionsHideFragment extends AuthFrag {
                         @Override
                         public void onLocationChanged(Location location) {
                             //Debug info - shows the location that was acquired
-                            Log.i("OOOOOkkkk: ", "Got a fix: " + location);
+                            Log.i("Location, yo", "Got a fix: " + location);
                             System.out.println("Location Defined");
                             mCurrentLocation = location;
                             LatLng myPoint = new LatLng(

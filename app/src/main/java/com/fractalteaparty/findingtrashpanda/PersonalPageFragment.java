@@ -49,7 +49,6 @@ public class PersonalPageFragment extends AuthFrag {
     public View onCreateView(LayoutInflater inflater, ViewGroup view, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_personal_page, view, false);
 
-
         mUsername = v.findViewById(R.id.username);
         mPoints = v.findViewById(R.id.user_points);
         mTotalFinds = v.findViewById(R.id.user_amount_finds);

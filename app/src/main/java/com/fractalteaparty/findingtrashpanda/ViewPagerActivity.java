@@ -126,9 +126,20 @@ public class ViewPagerActivity extends AuthActivity {
                         if(dataSnapshot.exists()) {
                             Log.i("nfc", "It's real! Let's do something!");
 
-                            Intent i = FoundPandaActivity.newIntent(getApplicationContext());
-                            i.putExtra(PANDA_NAME, mPandaName);
-                            startActivity(i);
+                            Intent i = null;
+                            if (mUserInfo.cur_panda == null)
+                                i = FoundPandaActivity.newIntent(getApplicationContext());
+                            else if (!mUserInfo.cur_panda.equals(mPandaName))
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        String.format("You still have %s! Hide it before you pick up a new panda!", mUserInfo.cur_panda),
+                                        Toast.LENGTH_SHORT).show();
+                            else
+                                i = InstructionsHideActivity.newIntent(getApplicationContext());
+                            if (i != null) {
+                                i.putExtra(PANDA_NAME, mPandaName);
+                                startActivity(i);
+                            }
                         }
                         else {
                             Log.i("nfc", "It's fake! Get outta here!");
