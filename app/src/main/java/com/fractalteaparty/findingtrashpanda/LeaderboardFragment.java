@@ -4,13 +4,19 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.android.gms.games.Player;
 import com.google.android.gms.maps.MapView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,55 +28,11 @@ import java.util.Random;
  */
 
 public class LeaderboardFragment extends AuthFrag {
-    private List<Player> players;
     private RecyclerView mRecyclerView;
     private LeaderboardAdapter mAdapter;
+    private List<User> mListUsers;
+    private DatabaseReference mUsers;
 
-    private class Player implements Comparable<Player>{
-        private String userName;
-        private int score;
-        private String realName;
-
-        Player(){
-            //give the player a random username
-            Random rand = new Random();
-            Integer randNum = rand.nextInt(100);
-            userName = "User " + randNum.toString();
-            //give the player a score
-            score = rand.nextInt(100);
-            //give the player a real name
-            realName = "Real Name " + randNum.toString();
-        }
-
-        public int compareTo(Player p)
-        {
-            return(p.getScore() - score);
-        }
-
-        public String getUserName() {
-            return userName;
-        }
-
-        public void setUserName(String userName) {
-            this.userName = userName;
-        }
-
-        public Integer getScore() {
-            return score;
-        }
-
-        public void setScore(int score) {
-            this.score = score;
-        }
-
-        public String getRealName() {
-            return realName;
-        }
-
-        public void setRealName(String realName) {
-            this.realName = realName;
-        }
-    }
 
 
     public static LeaderboardFragment newInstance(){
@@ -82,11 +44,29 @@ public class LeaderboardFragment extends AuthFrag {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        players = new ArrayList<Player>();
-        for (Integer i = 0; i < 10; i++){
-            players.add(new Player());
+        mListUsers = new ArrayList<>();
+        mUsers = db.getReference().getRef().child("users");
+
+        mUsers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mListUsers.clear();
+                for (DataSnapshot d : dataSnapshot.getChildren()){
+                    mListUsers.add(d.getValue(User.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        for (User u : mListUsers){
+            Log.i("stuff", u.);
         }
-        Collections.sort(players);
+
+        //Collections.sort(players);
     }
 
     @Override
