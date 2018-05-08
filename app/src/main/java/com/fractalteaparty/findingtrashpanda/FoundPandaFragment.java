@@ -88,8 +88,7 @@ public class FoundPandaFragment extends AuthFrag {
         mHideNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = InstructionsHideActivity.newIntent(getActivity().getApplicationContext());
-                i.putExtra(PANDA_NAME, mPassedPandaName);
+                Intent i = InstructionsHideActivity.newIntent(getActivity().getApplicationContext(), mPassedPandaName);
                 startActivity(i);
                 getActivity().finish();
             }

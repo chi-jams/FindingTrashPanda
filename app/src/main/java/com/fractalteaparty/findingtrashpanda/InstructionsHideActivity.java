@@ -11,8 +11,9 @@ import android.support.v4.app.Fragment;
 public class InstructionsHideActivity extends SingleFragmentActivity {
 
 
-    public static Intent newIntent(Context packageContext) {
+    public static Intent newIntent(Context packageContext, String pandaName) {
         Intent intent = new Intent(packageContext, InstructionsHideActivity.class);
+        intent.putExtra(FoundPandaFragment.PANDA_NAME, pandaName);
         return intent;
     }
 

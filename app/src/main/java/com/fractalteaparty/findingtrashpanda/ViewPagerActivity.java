@@ -60,7 +60,11 @@ public class ViewPagerActivity extends AuthActivity {
         mPandaFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = InstructionsFoundActivity.newIntent(getApplicationContext());
+                Intent i;
+                if (mUserInfo.cur_panda == null)
+                    i = InstructionsFoundActivity.newIntent(getApplicationContext());
+                else
+                    i = InstructionsHideActivity.newIntent(getApplicationContext(), mUserInfo.cur_panda);
                 startActivity(i);
             }
         });
@@ -144,7 +148,7 @@ public class ViewPagerActivity extends AuthActivity {
                                         String.format("You still have %s! Hide it before you pick up a new panda!", mUserInfo.cur_panda),
                                         Toast.LENGTH_SHORT).show();
                             else
-                                i = InstructionsHideActivity.newIntent(getApplicationContext());
+                                i = InstructionsHideActivity.newIntent(getApplicationContext(), mUserInfo.cur_panda);
                             if (i != null) {
                                 i.putExtra(PANDA_NAME, pName);
                                 startActivity(i);
