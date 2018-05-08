@@ -48,6 +48,7 @@ public class InstructionsHideFragment extends AuthFrag {
 
     private FirebaseDatabase db;
     private DatabaseReference pandaRef;
+    private Panda mPanda;
 
     public static InstructionsHideFragment newInstance(String pandaName) {
         Bundle args = new Bundle();
@@ -79,11 +80,12 @@ public class InstructionsHideFragment extends AuthFrag {
         db = FirebaseDatabase.getInstance();
         pandaRef = db.getReference().getRef().child("pandas").child(mPandaName);
 
-        Panda p;
         pandaRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i("ohai", dataSnapshot.getValue().toString());
+                mPanda = dataSnapshot.getValue(Panda.class);
+                Log.i("iHideFrags", String.format("%s: @(%f, %f)", mPanda.name, mPanda.lat, mPanda.lon));
             }
 
             @Override
@@ -158,11 +160,15 @@ public class InstructionsHideFragment extends AuthFrag {
                                     mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
                             Log.i("Location, yo", myPoint.toString());
 
-                            pandaRef.child("lat").setValue(mCurrentLocation.getLatitude());
-                            pandaRef.child("lon").setValue(mCurrentLocation.getLongitude());
-                            pandaRef.child("uid_current_owner").setValue(mUser.getUid());
-                            pandaRef.child("state").setValue("Hiding");
-                            pandaRef.child("date_hidden").setValue(DateFormat.format("yyyy/MM/dd hh:mm:ss", mCurrentLocation.getTime()));
+                            mPanda.lat = mCurrentLocation.getLatitude();
+                            mPanda.lon = mCurrentLocation.getLongitude();
+                            mPanda.uid_current_owner = mUser.getUid();
+                            mPanda.state = "Hiding";
+                            mPanda.date_hidden = DateFormat.format("yyyy/MM/dd hh:mm:ss", mCurrentLocation.getTime()).toString();
+
+                            pandaRef.setValue(mPanda);
+                            mUserInfo.cur_panda = null;
+                            mUserRef.setValue(mUserInfo);
                             getActivity().finish();
                         }
                     });

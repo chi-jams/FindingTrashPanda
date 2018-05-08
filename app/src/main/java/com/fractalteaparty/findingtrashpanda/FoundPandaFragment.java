@@ -2,12 +2,19 @@ package com.fractalteaparty.findingtrashpanda;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by bajafresh12 on 3/14/18.
@@ -21,6 +28,9 @@ public class FoundPandaFragment extends AuthFrag {
     private TextView mPandaInfo;
     private Button mHideNowButton, mGoHomeButton;
 
+    private DatabaseReference mPandaRef;
+    private Panda mPanda;
+
     public static FoundPandaFragment newInstance(String mPayload) {
         Bundle args = new Bundle();
         args.putString(PANDA_NAME, mPayload);
@@ -33,6 +43,30 @@ public class FoundPandaFragment extends AuthFrag {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPassedPandaName = getArguments().getString(PANDA_NAME);
+
+        mPandaRef = db.getReference().getRef().child("pandas").child(mPassedPandaName);
+        mPandaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mPanda = dataSnapshot.getValue(Panda.class);
+                Log.i("fpfragment", String.format("It's %s at %f, %f", mPanda.name, mPanda.lat, mPanda.lon));
+
+                mPanda.state = "Found";
+                mPanda.uid_current_owner = mUser.getUid();
+
+                mUserInfo.num_finds++;
+                mUserInfo.panda_finds.put(mPanda.name, mUserInfo.panda_finds.containsKey(mPanda.name) ? mUserInfo.panda_finds.get(mPanda.name) + 1 : 1);
+                mUserInfo.cur_panda = mPanda.name;
+
+                mPandaRef.setValue(mPanda);
+                mUserRef.setValue(mUserInfo);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("fpfragment", databaseError.toString());
+            }
+        });
 
     }
 
