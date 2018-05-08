@@ -13,7 +13,7 @@ public class Panda {
     public String hidden_life;
     public double lat, lon;
     public String uid_current_owner;
-    public String date_hidden;
+    public long date_hidden;
 
     public Panda() {
 
@@ -24,7 +24,6 @@ public class Panda {
         this.state = state;
         this.hidden_life = hidden_life;
         uid_current_owner = "";
-        date_hidden = "";
     }
 
 

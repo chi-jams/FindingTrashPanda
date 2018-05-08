@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ViewPagerActivity">
+        <activity android:name=".ViewPagerActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -35,15 +36,19 @@
 
 
         </activity>
-        <activity android:name=".InstructionsFoundActivity">
+        <activity android:name=".InstructionsFoundActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".InstructionsHideActivity">
+        <activity android:name=".InstructionsHideActivity"
+            android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".FoundPandaActivity">
+        <activity android:name=".FoundPandaActivity"
+            android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".PandaDetail"></activity>
+        <activity android:name=".PandaDetail"
+            android:screenOrientation="portrait"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

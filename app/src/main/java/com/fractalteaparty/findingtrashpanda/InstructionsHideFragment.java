@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by bajafresh12 on 3/14/18.
@@ -164,10 +165,11 @@ public class InstructionsHideFragment extends AuthFrag {
                             mPanda.lon = mCurrentLocation.getLongitude();
                             mPanda.uid_current_owner = mUser.getUid();
                             mPanda.state = "Hiding";
-                            mPanda.date_hidden = DateFormat.format("yyyy/MM/dd hh:mm:ss", mCurrentLocation.getTime()).toString();
+                            mPanda.date_hidden = Calendar.getInstance().getTimeInMillis();
 
                             pandaRef.setValue(mPanda);
                             mUserInfo.cur_panda = null;
+                            mUserInfo.points += 100;
                             mUserRef.setValue(mUserInfo);
                             getActivity().finish();
                         }

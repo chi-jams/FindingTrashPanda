@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 /**
  * Created by bajafresh12 on 3/14/18.
  */
@@ -54,7 +56,9 @@ public class FoundPandaFragment extends AuthFrag {
                 mPanda.state = "Found";
                 mPanda.uid_current_owner = mUser.getUid();
 
+                long curTime = Calendar.getInstance().getTimeInMillis();
                 mUserInfo.num_finds++;
+                mUserInfo.points += 7 * (curTime - mPanda.date_hidden) / (1000 * 60);
                 mUserInfo.panda_finds.put(mPanda.name, mUserInfo.panda_finds.containsKey(mPanda.name) ? mUserInfo.panda_finds.get(mPanda.name) + 1 : 1);
                 mUserInfo.cur_panda = mPanda.name;
 

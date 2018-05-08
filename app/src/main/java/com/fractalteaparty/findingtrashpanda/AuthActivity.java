@@ -59,19 +59,21 @@ public class AuthActivity extends AppCompatActivity {
                 mUser = FirebaseAuth.getInstance().getCurrentUser();
                 db = FirebaseDatabase.getInstance();
                 mUserRef = db.getReference().getRef().child("users").child(mUser.getUid());
-                mUserRef.addValueEventListener(new ValueEventListener() {
+                mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (!dataSnapshot.exists()) {
                             mUserInfo = new User();
                             Log.i("authfrag", "Didn't find a user... making a new one");
+                            Log.i("authfrag", mUser.getDisplayName());
+                            mUserInfo.name = mUser.getDisplayName();
+                            mUserRef.setValue(mUserInfo);
                         }
                         else {
                             mUserInfo = dataSnapshot.getValue(User.class);
                             Log.i("authfrag", String.format("Got a user! Hi %s!", mUser.getDisplayName()));
                         }
 
-                        mUserRef.setValue(mUserInfo);
                     }
 
                     @Override

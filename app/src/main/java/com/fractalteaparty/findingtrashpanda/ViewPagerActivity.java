@@ -36,10 +36,11 @@ public class ViewPagerActivity extends AuthActivity {
     private ViewPager mViewPager;
 
     private FloatingActionButton mPandaFab;
-    String mPandaName;
+    //String mPandaName;
 
     private FirebaseDatabase db;
     private DatabaseReference pandaRef;
+    private ValueEventListener nfcCheck;
 
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, ViewPagerActivity.class);
@@ -91,6 +92,12 @@ public class ViewPagerActivity extends AuthActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (pandaRef != null)
+            pandaRef.removeEventListener(nfcCheck);
+    }
+    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         //if we got here from a NFC intent
@@ -106,22 +113,24 @@ public class ViewPagerActivity extends AuthActivity {
                 // Process the messages array.
                 Log.i("vpactivity", "Here are the messages: ");
                 Log.i("vpactivity", messages[0].toString());
+                String pandaName = "";
                 try {
-                    mPandaName = new String(message.getRecords()[0].getPayload(), "UTF-8");
+                    pandaName = new String(message.getRecords()[0].getPayload(), "UTF-8");
                     //this line removes the "en" language encoding at the beginning of the text
-                    mPandaName = mPandaName.substring(3);
+                    pandaName = pandaName.substring(3);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
 
                 db = FirebaseDatabase.getInstance();
-                pandaRef = db.getReference().getRef().child("pandas").child(mPandaName);
+                pandaRef = db.getReference().getRef().child("pandas").child(pandaName);
 
                 Log.i("nfc", "Heyo! I got an NFC chip!");
-                pandaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                final String pName = pandaName;
+                nfcCheck = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.i("nfc", String.format("%s exists: %s", mPandaName, dataSnapshot.exists()));
+                        Log.i("nfc", String.format("%s exists: %s", pName, dataSnapshot.exists()));
 
                         if(dataSnapshot.exists()) {
                             Log.i("nfc", "It's real! Let's do something!");
@@ -129,7 +138,7 @@ public class ViewPagerActivity extends AuthActivity {
                             Intent i = null;
                             if (mUserInfo.cur_panda == null)
                                 i = FoundPandaActivity.newIntent(getApplicationContext());
-                            else if (!mUserInfo.cur_panda.equals(mPandaName))
+                            else if (!mUserInfo.cur_panda.equals(pName))
                                 Toast.makeText(
                                         getApplicationContext(),
                                         String.format("You still have %s! Hide it before you pick up a new panda!", mUserInfo.cur_panda),
@@ -137,7 +146,7 @@ public class ViewPagerActivity extends AuthActivity {
                             else
                                 i = InstructionsHideActivity.newIntent(getApplicationContext());
                             if (i != null) {
-                                i.putExtra(PANDA_NAME, mPandaName);
+                                i.putExtra(PANDA_NAME, pName);
                                 startActivity(i);
                             }
                         }
@@ -151,7 +160,8 @@ public class ViewPagerActivity extends AuthActivity {
                     public void onCancelled(DatabaseError databaseError) {
                         Log.e("nfc", databaseError.toString());
                     }
-                });
+                };
+                pandaRef.addListenerForSingleValueEvent(nfcCheck);
 
             }
         }
