@@ -19,7 +19,7 @@ public class FoundPandaFragment extends AuthFrag {
     private String mPassedPandaName;
     private ImageView mPandaImage;
     private TextView mPandaInfo;
-    private Button mHideNowButton;
+    private Button mHideNowButton, mGoHomeButton;
 
     public static FoundPandaFragment newInstance(String mPayload) {
         Bundle args = new Bundle();
@@ -53,6 +53,13 @@ public class FoundPandaFragment extends AuthFrag {
                 Intent i = InstructionsHideActivity.newIntent(getActivity().getApplicationContext());
                 i.putExtra(PANDA_NAME, mPassedPandaName);
                 startActivity(i);
+                getActivity().finish();
+            }
+        });
+        mGoHomeButton = v.findViewById(R.id.go_home);
+        mGoHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 getActivity().finish();
             }
         });
