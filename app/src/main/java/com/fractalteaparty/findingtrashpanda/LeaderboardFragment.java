@@ -49,9 +49,14 @@ public class LeaderboardFragment extends AuthFrag {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mListUsers.clear();
+                int count = 0;
                 for (DataSnapshot d : dataSnapshot.getChildren()){
                     mListUsers.add(d.getValue(User.class));
+                    count ++;
+                    Collections.sort(mListUsers);
+                    updateUI();
                 }
+                Log.e("Heyo", "for loop ran" + count);
             }
 
             @Override
@@ -60,14 +65,7 @@ public class LeaderboardFragment extends AuthFrag {
             }
         });
 
-        if (mListUsers.isEmpty()){
-            Log.e("Heyo", "this is not here why");
-        }
-        for (User u : mListUsers){
-            Log.i("stuff", u.name);
-        }
 
-        Collections.sort(mListUsers);
     }
 
     @Override
@@ -77,6 +75,7 @@ public class LeaderboardFragment extends AuthFrag {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return v;
+
     }
 
     private void updateUI(){
