@@ -39,8 +39,6 @@ public class LeaderboardFragment extends AuthFrag {
         return new LeaderboardFragment();
     }
 
-
-    //TODO: Get these from a database
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -62,6 +60,9 @@ public class LeaderboardFragment extends AuthFrag {
             }
         });
 
+        if (mListUsers.isEmpty()){
+            Log.e("Heyo", "this is not here why");
+        }
         for (User u : mListUsers){
             Log.i("stuff", u.name);
         }
@@ -74,9 +75,7 @@ public class LeaderboardFragment extends AuthFrag {
         View v = inflater.inflate(R.layout.fragment_leaderboard, view, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.leaderboard_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         updateUI();
-
         return v;
     }
 

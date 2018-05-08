@@ -1,5 +1,7 @@
 package com.fractalteaparty.findingtrashpanda;
 
+import android.util.Log;
+
 import com.google.android.gms.games.Player;
 
 import java.util.Map;
@@ -25,6 +27,7 @@ public class User implements Comparable<User>{
 
     public int compareTo(User u)
     {
+        Log.i("Here I called compare", "yeye");
         return(u.points - this.points);
     }
 }

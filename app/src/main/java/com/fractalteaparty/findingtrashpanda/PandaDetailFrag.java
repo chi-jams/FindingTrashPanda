@@ -59,7 +59,7 @@ public class PandaDetailFrag extends AuthFrag {
 
                 mPanda = dataSnapshot.getValue(Panda.class);
                 Log.i("ohai", String.format("It's %s!", mPanda.name));
-                mName.setText(mPanda.name);
+                mName.setText(mPanda.name.toUpperCase());
                 mStatus.setText(mPanda.state);
                 mDescription.setText(mPanda.hidden_life);
             }
