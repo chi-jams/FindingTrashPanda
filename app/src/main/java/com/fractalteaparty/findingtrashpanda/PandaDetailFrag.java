@@ -76,8 +76,6 @@ public class PandaDetailFrag extends AuthFrag {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.panda_profile, container, false);
 
-        mPic = v.findViewById(R.id.panda_pic);
-        // TODO: Grab panda pic
 
         mName = v.findViewById(R.id.panda_name);
         //mName.setText(mPanda.name);
