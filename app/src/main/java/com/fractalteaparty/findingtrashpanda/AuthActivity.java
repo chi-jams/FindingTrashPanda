@@ -59,7 +59,7 @@ public class AuthActivity extends AppCompatActivity {
                 mUser = FirebaseAuth.getInstance().getCurrentUser();
                 db = FirebaseDatabase.getInstance();
                 mUserRef = db.getReference().getRef().child("users").child(mUser.getUid());
-                mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                mUserRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (!dataSnapshot.exists()) {
