@@ -121,6 +121,8 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
 
                 Log.i("ohai", String.format("I'm now aware of %d pandas", pandas.size()));
                 mAdapter.notifyDataSetChanged();
+
+                updateUI();
             }
 
             @Override
@@ -135,8 +137,8 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
 
     public void drawCircle(LatLng point) {
         Random rand = new Random();
-        double randLat = rand.nextDouble() * 0.002 + 0.0001;
-        double randLon = rand.nextDouble() * 0.002 + 0.0001;
+        double randLat = rand.nextDouble() * 0.0002 + 0.0000001;
+        double randLon = rand.nextDouble() * 0.0002 + 0.0000001;
         int randOp = rand.nextInt(100) + 1;
 
         if (randOp < 25) {
@@ -152,7 +154,7 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
         CircleOptions circleOptions = new CircleOptions();
 
         circleOptions.center(point);
-        circleOptions.radius(300);
+        circleOptions.radius(30);
         circleOptions.strokeColor(Color.BLACK);
         circleOptions.fillColor(0x30ff0000);
         circleOptions.strokeWidth(2);
@@ -168,7 +170,7 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
         } catch (SecurityException e){
             e.printStackTrace();
         }
-        drawCircle(new LatLng(39.723, -105.14));
+
     }
 
     @Override
@@ -193,6 +195,19 @@ public class MainFragment extends AuthFrag implements OnMapReadyCallback{
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
+    }
+
+    public void updateUI() {
+        mMap.clear();
+
+        Panda lastPanda;
+        for (Panda panda : pandas) {
+            drawCircle(new LatLng(panda.lat, panda.lon));
+            lastPanda = panda;
+        }
+
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(new LatLng(pandas.get(0).lat, pandas.get(0).lon), 16);
+        mMap.animateCamera(update);
     }
 
     private class PandaHolder extends RecyclerView.ViewHolder
