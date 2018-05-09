@@ -29,6 +29,8 @@ public class FoundPandaFragment extends AuthFrag {
     private ImageView mPandaImage;
     private TextView mPandaInfo;
     private Button mHideNowButton, mGoHomeButton;
+    private TextView mPoints;
+    private TextView mHidingTime;
 
     private DatabaseReference mPandaRef;
     private Panda mPanda;
@@ -64,6 +66,20 @@ public class FoundPandaFragment extends AuthFrag {
 
                 mPandaRef.setValue(mPanda);
                 mUserRef.setValue(mUserInfo);
+
+                mPandaInfo.setText(mPanda.hidden_life);
+                mPoints.setText(String.format("Points %d", 7 * (curTime - mPanda.date_hidden) / (1000 * 60)));
+                long sInMilli = 1000;
+                long mInMilli = sInMilli * 60;
+                long hInMilli = mInMilli * 60;
+                long dInMilli = hInMilli * 24;
+                long diff = curTime - mPanda.date_hidden;
+                long days = diff / dInMilli;
+                diff %= dInMilli;
+                long hours = diff / hInMilli;
+                diff %= hInMilli;
+                long mins = diff / mInMilli;
+                mHidingTime.setText(String.format("Hiding time: %d days, %d hours, %d minutes", days, hours, mins));
             }
 
             @Override
@@ -81,6 +97,8 @@ public class FoundPandaFragment extends AuthFrag {
         //get NFC panda info
         mPandaName = v.findViewById(R.id.panda_name);
         mPandaInfo = v.findViewById(R.id.hidden_life_info);
+        mPoints = v.findViewById(R.id.found_points);
+        mHidingTime = v.findViewById(R.id.hiding_time);
 
         mPandaName.setText(mPassedPandaName);
 
